@@ -34,6 +34,13 @@
         <button class="btn-add" onclick="App.addSentence()">추가</button>
       </div>
       <div id="sentence-list" class="sentence-list"></div>
+      <div class="io-bar">
+        <button class="btn-export" onclick="SentenceDB.exportJSON()">📥 내보내기</button>
+        <label class="btn-import">
+          📤 가져오기
+          <input type="file" accept=".json" onchange="App.importFile(event)" hidden>
+        </label>
+      </div>
     </div>
   </div>
 

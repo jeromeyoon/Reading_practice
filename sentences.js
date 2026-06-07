@@ -37,5 +37,41 @@ const SentenceDB = (() => {
     save(getAll().filter(s => s.id !== id));
   }
 
-  return { getAll, add, remove };
+  function exportJSON() {
+    const data = JSON.stringify(getAll(), null, 2);
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'reading_sentences.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function importJSON(file, onDone) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      try {
+        const parsed = JSON.parse(e.target.result);
+        if (!Array.isArray(parsed)) throw new Error('invalid');
+        const current = new Set(getAll().map(s => s.text));
+        let added = 0;
+        parsed.forEach(s => {
+          if (s.text && !current.has(s.text)) {
+            add(s.text);
+            current.add(s.text);
+            added++;
+          }
+        });
+        if (onDone) onDone(added);
+      } catch {
+        alert('파일을 읽을 수 없어요. JSON 형식을 확인해 주세요.');
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  return { getAll, add, remove, exportJSON, importJSON };
 })();

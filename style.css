@@ -182,6 +182,43 @@ body {
   font-size: 0.95rem;
 }
 
+.io-bar {
+  display: flex;
+  gap: 0.7rem;
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e8edf5;
+}
+
+.btn-export, .btn-import {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.65rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-align: center;
+}
+
+.btn-export {
+  background: #eef3ff;
+  color: #4a7fd4;
+  border: 1.5px solid #4a7fd4;
+}
+.btn-export:hover { background: #d8e8ff; }
+
+.btn-import {
+  background: #f0fff4;
+  color: #2f855a;
+  border: 1.5px solid #48bb78;
+}
+.btn-import:hover { background: #c6f6d5; }
+
 /* ── Review screen ───────────────────────────────────────── */
 
 #screen-review { background: #eef3ff; }

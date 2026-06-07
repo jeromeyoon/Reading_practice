@@ -58,6 +58,17 @@ const App = (() => {
     _renderList();
   }
 
+  function importFile(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    SentenceDB.importJSON(file, added => {
+      alert(`${added}개 문장을 가져왔어요!`);
+      _renderList();
+      _updateHome();
+    });
+    e.target.value = '';
+  }
+
   function _renderList() {
     const list = SentenceDB.getAll();
     const el = $('sentence-list');
@@ -357,6 +368,7 @@ const App = (() => {
     showScreen,
     addSentence,
     removeSentence,
+    importFile,
     startReview,
     nextStep,
     confirmExit,
