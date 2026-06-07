@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Reading Review</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ── Home ────────────────────────────────────────────── -->
+  <div id="screen-home" class="screen active">
+    <div class="home-wrap">
+      <div class="home-icon">📚</div>
+      <h1>Reading Review</h1>
+      <p class="stat-text">저장된 문장 <strong id="home-count">0</strong>개</p>
+      <div class="home-buttons">
+        <button class="btn-secondary" onclick="App.showScreen('manage')">문장 관리</button>
+        <button class="btn-primary" id="btn-start" onclick="App.startReview()">복습 시작 ▶</button>
+      </div>
+      <p id="home-hint" class="home-hint"></p>
+    </div>
+  </div>
+
+  <!-- ── Manage ───────────────────────────────────────────── -->
+  <div id="screen-manage" class="screen">
+    <div class="top-bar">
+      <button class="btn-back" onclick="App.showScreen('home')">← 홈</button>
+      <h2>문장 관리</h2>
+    </div>
+    <div class="manage-wrap">
+      <div class="input-row">
+        <textarea id="input-sentence" placeholder="책에서 나온 문장을 입력하세요&#10;(Enter로 추가)" rows="2"></textarea>
+        <button class="btn-add" onclick="App.addSentence()">추가</button>
+      </div>
+      <div id="sentence-list" class="sentence-list"></div>
+    </div>
+  </div>
+
+  <!-- ── Review ───────────────────────────────────────────── -->
+  <div id="screen-review" class="screen">
+    <div class="top-bar">
+      <button class="btn-back" onclick="App.confirmExit()">← 나가기</button>
+      <span id="review-progress-text">1 / 1</span>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar">
+        <div id="progress-fill" class="progress-fill"></div>
+      </div>
+    </div>
+    <div id="mode-badge" class="mode-badge"></div>
+    <div id="review-content" class="review-content"></div>
+    <div id="review-feedback" class="review-feedback hidden"></div>
+    <div class="review-bottom">
+      <button id="btn-next" class="btn-primary btn-next hidden" onclick="App.nextStep()">다음 →</button>
+    </div>
+  </div>
+
+  <!-- ── Complete ─────────────────────────────────────────── -->
+  <div id="screen-complete" class="screen">
+    <div class="complete-wrap">
+      <div class="complete-icon">🎉</div>
+      <h2>완료!</h2>
+      <p>오늘도 열심히 했어요!</p>
+      <div id="complete-stars"></div>
+      <p id="complete-score"></p>
+      <button class="btn-primary" onclick="App.showScreen('home')">홈으로</button>
+    </div>
+  </div>
+
+  <script src="sentences.js"></script>
+  <script src="review.js"></script>
+  <script src="tts.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
