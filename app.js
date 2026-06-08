@@ -362,6 +362,9 @@ const App = (() => {
         addSentence();
       }
     });
+    SentenceDB.syncFromGitHub().then(ok => {
+      if (ok) _updateHome();
+    });
   });
 
   return {

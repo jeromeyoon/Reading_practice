@@ -50,6 +50,22 @@ const SentenceDB = (() => {
     URL.revokeObjectURL(url);
   }
 
+  async function syncFromGitHub() {
+    const url = 'https://raw.githubusercontent.com/jeromeyoon/Reading_practice/main/data/sentences.json?t=' + Date.now();
+    try {
+      const res = await fetch(url);
+      if (!res.ok) return false;
+      const remote = await res.json();
+      const local = getAll();
+      const remoteTexts = new Set(remote.map(s => s.text));
+      const localOnly = local.filter(s => !remoteTexts.has(s.text));
+      save([...remote, ...localOnly]);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
   function importJSON(file, onDone) {
     const reader = new FileReader();
     reader.onload = e => {
@@ -73,5 +89,5 @@ const SentenceDB = (() => {
     reader.readAsText(file);
   }
 
-  return { getAll, add, remove, exportJSON, importJSON };
+  return { getAll, add, remove, exportJSON, importJSON, syncFromGitHub };
 })();
